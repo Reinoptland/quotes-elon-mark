@@ -27,8 +27,12 @@ class App extends Component {
         quote: "Always reason from first principles",
         numLikes: 2
       },
-      { id: 4, author: "Mark Zuckerberg", quote: "For Treebeard", numLikes: 3 }
-    ]
+      { id: 4, author: "Elon Musk", quote: "For Treebeard", numLikes: 3 }
+    ],
+
+    filter: {
+      author: "all"
+    }
   };
 
   // define callback
@@ -60,25 +64,73 @@ class App extends Component {
     this.setState({ quotes: quotes });
   };
 
+  changeFilter = author => {
+    this.setState({
+      filter: {
+        author: author
+      }
+    });
+  };
+
+  renderQuotes() {
+    const {
+      quotes,
+      filter: { author }
+    } = this.state;
+
+    return quotes
+      .filter(quote => {
+        if (author === "all") {
+          return true;
+        } else if (author === quote.author) {
+          return true;
+        } else {
+          return false;
+        }
+      })
+      .sort((quote1, quote2) => quote2.numLikes - quote1.numLikes)
+      .map(quote => {
+        const { id, author, numLikes } = quote;
+        return (
+          <Quote
+            key={id}
+            id={id}
+            author={author}
+            quote={quote.quote}
+            numLikes={numLikes}
+            // pass callback down to Quote as a prop
+            incrementLike={this.incrementLike}
+          />
+        );
+      });
+  }
+
   render() {
     return (
       <div className="App">
         <header className="App-header">
-          {this.state.quotes
-            .sort((quote1, quote2) => quote2.numLikes - quote1.numLikes)
-            .map(quote => {
-              return (
-                <Quote
-                  key={quote.id}
-                  id={quote.id}
-                  author={quote.author}
-                  quote={quote.quote}
-                  numLikes={quote.numLikes}
-                  // pass callback down to Quote as a prop
-                  incrementLike={this.incrementLike}
-                />
-              );
-            })}
+          <button
+            onClick={() => {
+              this.changeFilter("Elon Musk");
+            }}
+          >
+            <img
+              height="200px"
+              src="https://image.businessinsider.com/5db1c746dee0192ce42bd6f7?width=1100&format=jpeg&auto=webp"
+            />
+          </button>
+          <button
+            onClick={() => {
+              this.changeFilter("Mark Zuckerberg");
+            }}
+          >
+            <img
+              height="200px"
+              src="https://static.independent.co.uk/s3fs-public/thumbnails/image/2018/05/31/21/mark-zuck.jpg?w968h681"
+            />
+          </button>
+
+          {this.renderQuotes()}
         </header>
       </div>
     );
