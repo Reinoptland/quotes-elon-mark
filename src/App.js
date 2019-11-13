@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import logo from "./logo.svg";
 import "./App.css";
 import Quote from "./Quote";
+import QuoteForm from "./QuoteForm";
 
 // Quotes liken
 // Quotes filteren
@@ -109,6 +110,7 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
+          <QuoteForm />
           <button
             onClick={() => {
               this.changeFilter("Elon Musk");
