@@ -1,26 +1,30 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import logo from "./logo.svg";
+import "./App.css";
+import Quote from "./Quote";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+// Quotes liken
+// Quotes filteren
+
+class App extends Component {
+  render() {
+    return (
+      <div className="App">
+        <header className="App-header">
+          <Quote author="Mark Zuckerberg" quote="Move fast and break things" />
+          <Quote
+            author="Mark Zuckerberg"
+            quote="Move fast with stable infrastructure"
+          />
+          <Quote
+            author="Elon Musk"
+            quote="Always reason from first principles"
+          />
+          <Quote author="Elon Musk" quote="For Treebeard" />
+        </header>
+      </div>
+    );
+  }
 }
 
 export default App;
